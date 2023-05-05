@@ -1,31 +1,79 @@
-import { InputAdornment, TextField } from "@mui/material";
+import { Button, Dialog, InputAdornment, TextField } from "@mui/material";
+import Filters from "components/Filters/Filters";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import ProductsClasses from "styles/components/Products.module.scss";
+import useMobile from "utils/hooks/useMobile";
+import ProductsGrid from "./ProductsGrid";
+import SearchBar from "components/SearchBar/SearchBar";
 
-function Products() {
+function Products(props) {
+  const { cardsData } = props;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [visibleCards, setVisibleCards] = useState(cardsData);
+  const [isOpen, setIsOpen] = useState(false);
+  const { isTabletOrSmaller } = useMobile();
+
+  const handleSearch = (e) => {
+    console.log("enter");
+    e.preventDefault();
+    if (!searchTerm) {
+      setVisibleCards(cardsData);
+    } else {
+      console.log("hit");
+      const excludedKeys = ["imageURL"];
+      const filteredCards = cardsData.filter((item) => {
+        const matchingProps = Object.entries(item).reduce(
+          (properties, [key, value]) => {
+            if (
+              !excludedKeys.includes(key) &&
+              String(value).toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              properties.push(key);
+            }
+            return properties;
+          },
+          []
+        );
+        // if (matchingProps.length > 0) {
+        //   console.log(
+        //     `"${searchTerm}" found in properties: ${matchingProps.join(", ")}`
+        //   );
+        //   return true;
+        // }
+        return false;
+      });
+      setVisibleCards(filteredCards);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(e);
+    }
+  };
   return (
     <div className={ProductsClasses["products__main"]}>
-      <div className={ProductsClasses["products__searchbar"]}>
-        <TextField
-          id="standard-basic"
-          label="Search"
-          variant="standard"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Image
-                  src="/magnifying-glass-solid.svg"
-                  alt="search"
-                  width={18}
-                  height={18}
-                />
-              </InputAdornment>
-            ),
-          }}
+      <div className={ProductsClasses["products__search"]}>
+        <SearchBar
+          handleSearch={handleSearch}
+          handleKeyPress={handleKeyPress}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setSearchTerm={setSearchTerm}
         />
       </div>
-      <div className={ProductsClasses["products__grid"]}></div>
+      {isTabletOrSmaller && isOpen && (
+        <Dialog
+          onClose={() => {
+            setIsOpen(false);
+          }}
+          open={isOpen}
+        >
+          <Filters />
+        </Dialog>
+      )}
+      <ProductsGrid cardsDisplayData={visibleCards} />
     </div>
   );
 }

@@ -2,7 +2,24 @@
 Content
 */
 .content__main {
+  padding: 2rem 2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: "1024px") {
+    padding: 1rem 1rem;
+  }
+}
+.content__left {
+  flex-basis: 25%;
+  // border: 1px solid black;
+}
+.content__right {
+  flex-basis: 75%;
+  margin: 0 auto;
+  // border: 1px solid black;
+  width: 100%;
+  @media (max-width: "1024px") {
+    flex-basis: 100%;
+  }
 }
