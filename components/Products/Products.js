@@ -35,12 +35,12 @@ function Products(props) {
           },
           []
         );
-        // if (matchingProps.length > 0) {
-        //   console.log(
-        //     `"${searchTerm}" found in properties: ${matchingProps.join(", ")}`
-        //   );
-        //   return true;
-        // }
+        if (matchingProps.length > 0) {
+          // console.log(
+          //   `"${searchTerm}" found in properties: ${matchingProps.join(", ")}`
+          // );
+          return true;
+        }
         return false;
       });
       setVisibleCards(filteredCards);
