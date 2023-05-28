@@ -1,0 +1,14 @@
+/*
+Products Grid
+*/
+
+.productCard__main {
+  min-height: 15rem;
+  min-width: auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 0.5 rem;
+}
+
+.productCard__img > div > img {
+  margin: 0 auto;
+}

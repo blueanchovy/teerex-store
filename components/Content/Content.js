@@ -7,7 +7,7 @@ import useMobile from "utils/hooks/useMobile";
 function Content(props) {
   const { isTabletOrSmaller } = useMobile();
   return (
-    <div className={ContentClasses["content__main"]}>
+    <main className={ContentClasses["content__main"]}>
       {!isTabletOrSmaller && (
         <div className={ContentClasses["content__left"]}>
           <Filters />
@@ -16,8 +16,8 @@ function Content(props) {
       <div className={ContentClasses["content__right"]}>
         <Products cardsData={props.cardsData} />
       </div>
-    </div>
+    </main>
   );
 }
 
-export default Content;
+export default React.memo(Content);

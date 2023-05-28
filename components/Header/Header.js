@@ -5,7 +5,7 @@ import HeaderClasses from "styles/components/Header.module.scss";
 
 function Header() {
   return (
-    <div className={HeaderClasses["header_main"]}>
+    <header className={HeaderClasses["header_main"]}>
       <div className={HeaderClasses["header_left"]}>TeeRex Store</div>
       <div className={HeaderClasses["header_right"]}>
         <div className={HeaderClasses["header_right_products"]}>
@@ -20,8 +20,8 @@ function Header() {
           />
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
-export default Header;
+export default React.memo(Header);

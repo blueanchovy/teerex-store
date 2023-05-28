@@ -5,4 +5,4 @@ function Filters() {
   return <div>Filters</div>;
 }
 
-export default Filters;
+export default React.memo(Filters);

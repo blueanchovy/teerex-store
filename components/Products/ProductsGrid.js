@@ -1,13 +1,15 @@
 import React from "react";
+import ProductCard from "./ProductCard";
+import ProductsGridClasses from "styles/components/ProductsGrid.module.scss";
 
 function ProductsGrid(props) {
-  console.log(props.cardsDisplayData);
+  console.log("cardsDisplaydata", props.cardsDisplayData);
   return (
     <>
-      <div>
-        {props.cardsDisplayData.map((card) => (
+      <div className={ProductsGridClasses["productsGrid_main"]}>
+        {props.cardsDisplayData.map((cardData) => (
           <>
-            <div>{card.color}</div>
+            <ProductCard cardData={cardData} />
           </>
         ))}
       </div>
@@ -15,4 +17,4 @@ function ProductsGrid(props) {
   );
 }
 
-export default ProductsGrid;
+export default React.memo(ProductsGrid);
