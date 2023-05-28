@@ -6,9 +6,60 @@ Products Grid
   min-height: 15rem;
   min-width: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 0.5 rem;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  // justify-content: center;
+  align-items: center;
+}
+
+.productCard__name {
+  // position: relative;
+  top: 0;
 }
 
 .productCard__img > div > img {
   margin: 0 auto;
+}
+
+.productCard__summary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.productCard__addToCartButton {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 4px;
+  align-items: center;
+  height: 20px;
+}
+
+.productCard__itemStepper {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 4px;
+  align-items: center;
+  height: 20px;
+}
+
+.productCard__itemStepperLess {
+  cursor: pointer;
+}
+.productCard__itemStepperCount {
+}
+.productCard__itemStepperMore {
+  cursor: pointer;
 }

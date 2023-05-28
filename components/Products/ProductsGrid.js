@@ -6,7 +6,7 @@ function ProductsGrid(props) {
   console.log("cardsDisplaydata", props.cardsDisplayData);
   return (
     <>
-      <div className={ProductsGridClasses["productsGrid_main"]}>
+      <div className={ProductsGridClasses["productsGrid__main"]}>
         {props.cardsDisplayData.map((cardData) => (
           <>
             <ProductCard cardData={cardData} />
