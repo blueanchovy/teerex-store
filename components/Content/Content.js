@@ -10,7 +10,7 @@ function Content(props) {
     <main className={ContentClasses["content__main"]}>
       {!isTabletOrSmaller && (
         <div className={ContentClasses["content__left"]}>
-          <Filters />
+          <Filters cardsData={props.cardsData} />
         </div>
       )}
       <div className={ContentClasses["content__right"]}>

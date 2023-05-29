@@ -23,6 +23,9 @@ Header
 .header_right {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  font-size: large;
 }
 .header_right__cart {
   cursor: pointer;
@@ -30,6 +33,7 @@ Header
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px;
 }
 .header_right__cart > span {
   padding: 6px;
