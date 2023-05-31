@@ -7,7 +7,7 @@ import useMobile from "utils/hooks/useMobile";
 function Content(props) {
   const { isTabletOrSmaller } = useMobile();
   return (
-    <main className={ContentClasses["content__main"]}>
+    <div className={ContentClasses["content__main"]}>
       {!isTabletOrSmaller && (
         <div className={ContentClasses["content__left"]}>
           <Filters cardsData={props.cardsData} />
@@ -16,7 +16,7 @@ function Content(props) {
       <div className={ContentClasses["content__right"]}>
         <Products cardsData={props.cardsData} />
       </div>
-    </main>
+    </div>
   );
 }
 

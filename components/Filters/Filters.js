@@ -3,9 +3,9 @@ import FiltersClasses from "styles/components/Filters.module.scss";
 
 function Filters(props) {
   const { cardsData } = props;
-  const colors = [...new Set(cardsData.map((card) => card.color))];
-  const genders = [...new Set(cardsData.map((card) => card.gender))];
-  const types = [...new Set(cardsData.map((card) => card.type))];
+  const colors = [...new Set(cardsData?.map((card) => card?.color))];
+  const genders = [...new Set(cardsData?.map((card) => card?.gender))];
+  const types = [...new Set(cardsData?.map((card) => card?.type))];
   const prices = ["0-250", "250-450", "450"];
   return (
     <>
