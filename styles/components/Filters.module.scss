@@ -10,7 +10,41 @@ Filters
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 15px;
   width: 70%;
-  @media (max-width: 767px) {
+  margin: 0 auto;
+  @media (max-width: 1024px) {
     box-shadow: none;
   }
+  @media (max-width: 767px) {
+    box-shadow: none;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0 15px 25px;
+  }
+}
+
+.filters__sections {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  @media (max-width: 767px) {
+    flex-wrap: wrap;
+
+    margin: 8px 2px;
+  }
+}
+
+.filters__sections > div {
+  @media (max-width: 767px) {
+    margin: 8px 2px;
+  }
+}
+
+.filters__apply {
+  // width: 100%;
+  // margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }

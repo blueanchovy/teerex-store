@@ -43,7 +43,7 @@ Products Grid
 .productCard__addToCartButton {
   display: flex;
   flex-direction: row;
-  width: 40%;
+  min-width: 7rem;
   justify-content: space-between;
   cursor: pointer;
   border: 1px solid black;
@@ -56,7 +56,7 @@ Products Grid
 .productCard__itemStepper {
   display: flex;
   flex-direction: row;
-  width: 40%;
+  width: 7rem;
   justify-content: space-between;
   border: 1px solid black;
   border-radius: 5px;

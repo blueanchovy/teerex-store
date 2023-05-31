@@ -1,6 +1,4 @@
-import { Button, Dialog, InputAdornment, TextField } from "@mui/material";
 import Filters from "components/Filters/Filters";
-import Image from "next/image";
 import React, { useState } from "react";
 import ProductsClasses from "styles/components/Products.module.scss";
 import useMobile from "utils/hooks/useMobile";
@@ -64,14 +62,19 @@ function Products(props) {
         />
       </div>
       {isTabletOrSmaller && isOpen && (
-        <Dialog
-          onClose={() => {
-            setIsOpen(false);
-          }}
-          open={isOpen}
-        >
-          <Filters cardsData={cardsData} />
-        </Dialog>
+        <div id="filters__modal" className={ProductsClasses["filters__modal"]}>
+          <div className={ProductsClasses["filters__modal_content"]}>
+            <div className={ProductsClasses["filters__modal_close"]}>
+              <span onClick={() => setIsOpen(false)}>&times;</span>
+            </div>
+
+            <Filters
+              cardsData={cardsData}
+              hasApplyButton={true}
+              setIsOpen={setIsOpen}
+            />
+          </div>
+        </div>
       )}
       <ProductsGrid cardsDisplayData={visibleCards} />
     </div>

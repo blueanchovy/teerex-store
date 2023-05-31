@@ -3,14 +3,28 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import HeaderClasses from "styles/components/Header.module.scss";
+import useMobile from "utils/hooks/useMobile";
 
 function Header() {
   const router = useRouter();
+  const { isMobileOrSmaller } = useMobile();
   return (
     <header className={HeaderClasses["header_main"]}>
-      <div className={HeaderClasses["header_left"]}>TeeRex Store</div>
+      <div
+        className={HeaderClasses["header_left"]}
+        onClick={() => router.push("/")}
+      >
+        TeeRex Store
+      </div>
       <div className={HeaderClasses["header_right"]}>
-        <div className={HeaderClasses["header_right_products"]}>Products</div>
+        {!isMobileOrSmaller && (
+          <div
+            className={HeaderClasses["header_right_products"]}
+            onClick={() => router.push("/")}
+          >
+            Products
+          </div>
+        )}
         <div
           className={HeaderClasses["header_right__cart"]}
           onClick={() => router.push("/Cart")}

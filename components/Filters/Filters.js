@@ -2,7 +2,11 @@ import React from "react";
 import FiltersClasses from "styles/components/Filters.module.scss";
 
 function Filters(props) {
-  const { cardsData } = props;
+  const {
+    cardsData = {},
+    hasApplyButton = false,
+    setIsOpen = () => null,
+  } = props;
   const colors = [...new Set(cardsData?.map((card) => card?.color))];
   const genders = [...new Set(cardsData?.map((card) => card?.gender))];
   const types = [...new Set(cardsData?.map((card) => card?.type))];
@@ -67,6 +71,11 @@ function Filters(props) {
             ))}
           </div>
         </div>
+        {hasApplyButton && (
+          <div className={FiltersClasses["filters__apply"]}>
+            <button onClick={() => setIsOpen(false)}>Apply</button>
+          </div>
+        )}
       </div>
     </>
   );

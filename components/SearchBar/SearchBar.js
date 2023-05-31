@@ -5,11 +5,11 @@ import useMobile from "utils/hooks/useMobile";
 
 function SearchBar(props) {
   const {
-    handleSearch = {},
-    handleKeyPress = {},
+    handleSearch = () => null,
+    handleKeyPress = () => null,
     isOpen = false,
-    setIsOpen = {},
-    setSearchTerm = {},
+    setIsOpen = () => null,
+    setSearchTerm = () => null,
   } = props;
   const { isTabletOrSmaller } = useMobile();
   return (
@@ -20,6 +20,7 @@ function SearchBar(props) {
         variant="outlined"
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyPress={handleKeyPress}
+        className={ProductsClasses["products__search__input"]}
       />
       <div className={ProductsClasses["products__search__searchButton"]}>
         <button
