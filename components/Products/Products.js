@@ -70,7 +70,7 @@ function Products(props) {
           }}
           open={isOpen}
         >
-          <Filters />
+          <Filters cardsData={cardsData} />
         </Dialog>
       )}
       <ProductsGrid cardsDisplayData={visibleCards} />
