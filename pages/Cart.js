@@ -1,7 +1,10 @@
+import DefaultLayout from "layouts/DefaultLayout";
 import React from "react";
 
-function Cart() {
+export default function Cart() {
   return <div>Cart</div>;
 }
 
-export default React.memo(Cart);
+Cart.getLayout = function getLayout(page) {
+  return <DefaultLayout>{page}</DefaultLayout>;
+};
