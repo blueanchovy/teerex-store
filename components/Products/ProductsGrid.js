@@ -3,11 +3,12 @@ import ProductCard from "./ProductCard";
 import ProductsGridClasses from "styles/components/ProductsGrid.module.scss";
 
 function ProductsGrid(props) {
+  const { cardsDisplayData = {} } = props;
   console.log("cardsDisplaydata", props.cardsDisplayData);
   return (
     <>
       <div className={ProductsGridClasses["productsGrid__main"]}>
-        {props.cardsDisplayData.map((cardData) => (
+        {cardsDisplayData.map((cardData) => (
           <>
             <ProductCard cardData={cardData} />
           </>

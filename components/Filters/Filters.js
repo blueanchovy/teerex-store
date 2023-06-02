@@ -1,16 +1,111 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FiltersClasses from "styles/components/Filters.module.scss";
 
 function Filters(props) {
   const {
-    cardsData = {},
+    cardsData = [],
+    searchedColors = [],
+    searchedGenders = [],
+    searchedTypes = [],
+    prices = [],
     hasApplyButton = false,
     setIsOpen = () => null,
   } = props;
   const colors = [...new Set(cardsData?.map((card) => card?.color))];
   const genders = [...new Set(cardsData?.map((card) => card?.gender))];
   const types = [...new Set(cardsData?.map((card) => card?.type))];
-  const prices = ["0-250", "250-450", "450"];
+  const [checkedColors, setCheckedColors] = useState(searchedColors);
+  const [checkedGenders, setCheckedGenders] = useState(searchedGenders);
+  const [checkedTypes, setCheckedTypes] = useState(searchedTypes);
+  const [checkedRanges, setCheckedRanges] = useState(prices);
+
+  const handleCheckboxChange = (event, value) => {
+    const isChecked = event.target.checked;
+    console.log("ischecked", value, isChecked);
+
+    const handleCase = (setState, value, isChecked) => {
+      setState((prevState) => {
+        if (isChecked) {
+          return [...prevState, value];
+        } else {
+          return prevState.filter((item) => item !== value);
+        }
+      });
+    };
+
+    switch (true) {
+      case colors.includes(value):
+        handleCase(setCheckedColors, value, isChecked);
+        break;
+
+      case genders.includes(value):
+        handleCase(setCheckedGenders, value, isChecked);
+        break;
+
+      case types.includes(value):
+        handleCase(setCheckedTypes, value, isChecked);
+        break;
+
+      case prices.includes(value):
+        handleCase(setCheckedRanges, value, isChecked);
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  //   switch (true) {
+  //     case colors.includes(value):
+  //       setCheckedColors((prevCheckedColors) => {
+  //         if (isChecked) {
+  //           return [...prevCheckedColors, value];
+  //         } else {
+  //           return prevCheckedColors.filter((c) => c !== value);
+  //         }
+  //       });
+  //       break;
+
+  //     case genders.includes(value):
+  //       setCheckedGenders((prevCheckedGenders) => {
+  //         if (isChecked) {
+  //           return [...prevCheckedGenders, value];
+  //         } else {
+  //           return prevCheckedGenders.filter((g) => g !== value);
+  //         }
+  //       });
+  //       break;
+
+  //     case types.includes(value):
+  //       setCheckedTypes((prevCheckedTypes) => {
+  //         if (isChecked) {
+  //           return [...prevCheckedTypes, value];
+  //         } else {
+  //           return prevCheckedTypes.filter((t) => t !== value);
+  //         }
+  //       });
+  //       break;
+
+  //     case prices.includes(value):
+  //       setCheckedRanges((prevCheckedRanges) => {
+  //         if (isChecked) {
+  //           return [...prevCheckedRanges, value];
+  //         } else {
+  //           return prevCheckedRanges.filter((p) => p !== value);
+  //         }
+  //       });
+  //       break;
+
+  //     default:
+  //       return;
+  //   }
+  // };
+  // const prices = ["0-250", "250-450", "450"];
+  // useEffect(() => {}, [colors, genders, types]);
+  // console.log(colors, genders, types);
+  // console.log(searchedColors);
+  console.log(checkedColors);
+
   return (
     <>
       <div className={FiltersClasses["filters__main"]}>
@@ -21,12 +116,21 @@ function Filters(props) {
               Colour
             </div>
             <div className={FiltersClasses["filters__sections__colourBody"]}>
-              {colors.map((color) => (
-                <div key={color}>
-                  <input type="checkbox" id={color} name={color} />
-                  <label htmlFor={color}>{color}</label>
-                </div>
-              ))}
+              {colors.map((color) => {
+                console.log(checkedColors);
+                return (
+                  <div key={color}>
+                    <input
+                      type="checkbox"
+                      id={color}
+                      name={color}
+                      checked={checkedColors?.includes(color)}
+                      onChange={(event) => handleCheckboxChange(event, color)}
+                    />
+                    <label htmlFor={color}>{color}</label>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className={FiltersClasses["filters__sections__gender"]}>
@@ -35,7 +139,13 @@ function Filters(props) {
             </div>
             {genders.map((gender) => (
               <div key={gender}>
-                <input type="checkbox" id={gender} name={gender} />
+                <input
+                  type="checkbox"
+                  id={gender}
+                  name={gender}
+                  checked={checkedGenders?.includes(gender)}
+                  onChange={(event) => handleCheckboxChange(event, gender)}
+                />
                 <label htmlFor={gender}>{gender}</label>
               </div>
             ))}
@@ -53,7 +163,15 @@ function Filters(props) {
               <label htmlFor="price3">450</label> */}
               {prices.map((priceRange) => (
                 <div key={priceRange}>
-                  <input type="checkbox" id={priceRange} name={priceRange} />
+                  <input
+                    type="checkbox"
+                    id={priceRange}
+                    name={priceRange}
+                    checked={checkedRanges?.includes(priceRange)}
+                    onChange={(event) =>
+                      handleCheckboxChange(event, priceRange)
+                    }
+                  />
                   <label htmlFor={priceRange}>{priceRange}</label>
                 </div>
               ))}
@@ -65,7 +183,13 @@ function Filters(props) {
             </div>
             {types.map((type) => (
               <div key={type}>
-                <input type="checkbox" id={type} name={type} />
+                <input
+                  type="checkbox"
+                  id={type}
+                  name={type}
+                  checked={checkedTypes?.includes(type)}
+                  onChange={(event) => handleCheckboxChange(event, type)}
+                />
                 <label htmlFor={type}>{type}</label>
               </div>
             ))}

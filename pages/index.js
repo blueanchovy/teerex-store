@@ -8,7 +8,6 @@ export default function Home({ data }) {
   console.log(data);
 
   const DynamicContent = dynamic(() => import("components/Content/Content"));
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

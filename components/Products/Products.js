@@ -6,11 +6,30 @@ import ProductsGrid from "./ProductsGrid";
 import SearchBar from "components/SearchBar/SearchBar";
 
 function Products(props) {
-  const { cardsData } = props;
+  const { cardsData = [] } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCards, setVisibleCards] = useState(cardsData);
   const [isOpen, setIsOpen] = useState(false);
   const { isTabletOrSmaller } = useMobile();
+  const [searchedColors, setSearchedColors] = useState([
+    ...new Set(cardsData?.map((card) => card?.color)),
+  ]);
+  const [searchedGenders, setSearchedGenders] = useState([
+    ...new Set(cardsData?.map((card) => card?.gender)),
+  ]);
+  const [searchedTypes, setSearchedTypes] = useState([
+    ...new Set(cardsData?.map((card) => card?.type)),
+  ]);
+  // const genders = [...new Set(visibleCards?.map((card) => card?.gender))];
+  // const types = [...new Set(visibleCards?.map((card) => card?.type))];
+  const prices = ["0-250", "250-450", "450"];
+
+  const updateFilters = (cardsData) => {
+    setSearchedColors([...new Set(cardsData?.map((card) => card?.color))]);
+    setSearchedGenders([...new Set(cardsData?.map((card) => card?.gender))]);
+    setSearchedTypes([...new Set(cardsData?.map((card) => card?.type))]);
+    // console.log(colors);
+  };
 
   const handleSearch = (e) => {
     console.log("enter");
@@ -19,9 +38,10 @@ function Products(props) {
       setVisibleCards(cardsData);
     } else {
       console.log("hit");
+      let matchingProps = {};
       const excludedKeys = ["imageURL"];
       const filteredCards = cardsData.filter((item) => {
-        const matchingProps = Object.entries(item).reduce(
+        matchingProps = Object.entries(item).reduce(
           (properties, [key, value]) => {
             if (
               !excludedKeys.includes(key) &&
@@ -42,6 +62,7 @@ function Products(props) {
         return false;
       });
       setVisibleCards(filteredCards);
+      updateFilters(filteredCards, matchingProps);
     }
   };
 
@@ -70,6 +91,10 @@ function Products(props) {
 
             <Filters
               cardsData={cardsData}
+              searchedColors={searchedColors}
+              searchedGenders={searchedGenders}
+              searchedTypes={searchedTypes}
+              prices={prices}
               hasApplyButton={true}
               setIsOpen={setIsOpen}
             />

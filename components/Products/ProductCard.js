@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ProductCardClasses from "styles/components/ProductCard.module.scss";
 
 function ProductCard(props) {
-  const { cardData } = props;
+  const { cardData = {} } = props;
   const [itemCountInCart, setItemCountInCart] = useState(0);
 
   const handleAddToCart = () => {
