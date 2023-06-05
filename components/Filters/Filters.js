@@ -1,9 +1,10 @@
+import { useCardsContext } from "Context/cardsProvider";
 import React, { useEffect, useState } from "react";
 import FiltersClasses from "styles/components/Filters.module.scss";
 
 function Filters(props) {
+  const { cardsData = [] } = useCardsContext();
   const {
-    cardsData = [],
     searchedColors = [],
     searchedGenders = [],
     searchedTypes = [],
@@ -21,7 +22,6 @@ function Filters(props) {
 
   const handleCheckboxChange = (event, value) => {
     const isChecked = event.target.checked;
-    console.log("ischecked", value, isChecked);
 
     const handleCase = (setState, value, isChecked) => {
       setState((prevState) => {
@@ -55,57 +55,6 @@ function Filters(props) {
     }
   };
 
-  //   switch (true) {
-  //     case colors.includes(value):
-  //       setCheckedColors((prevCheckedColors) => {
-  //         if (isChecked) {
-  //           return [...prevCheckedColors, value];
-  //         } else {
-  //           return prevCheckedColors.filter((c) => c !== value);
-  //         }
-  //       });
-  //       break;
-
-  //     case genders.includes(value):
-  //       setCheckedGenders((prevCheckedGenders) => {
-  //         if (isChecked) {
-  //           return [...prevCheckedGenders, value];
-  //         } else {
-  //           return prevCheckedGenders.filter((g) => g !== value);
-  //         }
-  //       });
-  //       break;
-
-  //     case types.includes(value):
-  //       setCheckedTypes((prevCheckedTypes) => {
-  //         if (isChecked) {
-  //           return [...prevCheckedTypes, value];
-  //         } else {
-  //           return prevCheckedTypes.filter((t) => t !== value);
-  //         }
-  //       });
-  //       break;
-
-  //     case prices.includes(value):
-  //       setCheckedRanges((prevCheckedRanges) => {
-  //         if (isChecked) {
-  //           return [...prevCheckedRanges, value];
-  //         } else {
-  //           return prevCheckedRanges.filter((p) => p !== value);
-  //         }
-  //       });
-  //       break;
-
-  //     default:
-  //       return;
-  //   }
-  // };
-  // const prices = ["0-250", "250-450", "450"];
-  // useEffect(() => {}, [colors, genders, types]);
-  // console.log(colors, genders, types);
-  // console.log(searchedColors);
-  console.log(checkedColors);
-
   return (
     <>
       <div className={FiltersClasses["filters__main"]}>
@@ -117,7 +66,6 @@ function Filters(props) {
             </div>
             <div className={FiltersClasses["filters__sections__colourBody"]}>
               {colors.map((color) => {
-                console.log(checkedColors);
                 return (
                   <div key={color}>
                     <input

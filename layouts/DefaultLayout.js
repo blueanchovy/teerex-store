@@ -1,13 +1,11 @@
-// import dynamic from "next/dynamic";
-import Header from "components/Header/Header";
+import dynamic from "next/dynamic";
 import React from "react";
 
 function DefaultLayout({ children }) {
-  //   const DynamicHeader = dynamic(() => import("components/Header/Header"));
+  const DynamicHeader = dynamic(() => import("components/Header/Header"));
   return (
     <>
-      {/* <DynamicHeader /> */}
-      <Header />
+      <DynamicHeader />
       <main>{children}</main>
     </>
   );

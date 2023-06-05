@@ -4,9 +4,10 @@ import ProductsClasses from "styles/components/Products.module.scss";
 import useMobile from "utils/hooks/useMobile";
 import ProductsGrid from "./ProductsGrid";
 import SearchBar from "components/SearchBar/SearchBar";
+import { useCardsContext } from "Context/cardsProvider";
 
-function Products(props) {
-  const { cardsData = [] } = props;
+function Products() {
+  const { cardsData = [] } = useCardsContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCards, setVisibleCards] = useState(cardsData);
   const [isOpen, setIsOpen] = useState(false);
@@ -20,15 +21,12 @@ function Products(props) {
   const [searchedTypes, setSearchedTypes] = useState([
     ...new Set(cardsData?.map((card) => card?.type)),
   ]);
-  // const genders = [...new Set(visibleCards?.map((card) => card?.gender))];
-  // const types = [...new Set(visibleCards?.map((card) => card?.type))];
   const prices = ["0-250", "250-450", "450"];
 
   const updateFilters = (cardsData) => {
     setSearchedColors([...new Set(cardsData?.map((card) => card?.color))]);
     setSearchedGenders([...new Set(cardsData?.map((card) => card?.gender))]);
     setSearchedTypes([...new Set(cardsData?.map((card) => card?.type))]);
-    // console.log(colors);
   };
 
   const handleSearch = (e) => {
@@ -90,7 +88,6 @@ function Products(props) {
             </div>
 
             <Filters
-              cardsData={cardsData}
               searchedColors={searchedColors}
               searchedGenders={searchedGenders}
               searchedTypes={searchedTypes}

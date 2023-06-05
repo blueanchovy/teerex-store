@@ -1,11 +1,12 @@
+import { useCardsContext } from "Context/cardsProvider";
 import Filters from "components/Filters/Filters";
 import Products from "components/Products/Products";
 import React from "react";
 import ContentClasses from "styles/components/Content.module.scss";
 import useMobile from "utils/hooks/useMobile";
 
-function Content(props) {
-  const { cardsData = {} } = props;
+function Content() {
+  const { cardsData = [] } = useCardsContext();
   const colors = [...new Set(cardsData?.map((card) => card?.color))];
   const genders = [...new Set(cardsData?.map((card) => card?.gender))];
   const types = [...new Set(cardsData?.map((card) => card?.type))];
@@ -25,7 +26,7 @@ function Content(props) {
         </div>
       )}
       <div className={ContentClasses["content__right"]}>
-        <Products cardsData={cardsData} />
+        <Products />
       </div>
     </div>
   );
