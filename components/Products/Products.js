@@ -5,29 +5,36 @@ import useMobile from "utils/hooks/useMobile";
 import ProductsGrid from "./ProductsGrid";
 import SearchBar from "components/SearchBar/SearchBar";
 import { useCardsContext } from "Context/cardsProvider";
+import { useFiltersContext } from "Context/filtersProvider";
 
 function Products() {
   const { cardsData = [] } = useCardsContext();
+  const {
+    // searchedGenders = [],
+    // searchedColors = [],
+    // searchedTypes = [],
+    updateFilters,
+  } = useFiltersContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCards, setVisibleCards] = useState(cardsData);
   const [isOpen, setIsOpen] = useState(false);
   const { isTabletOrSmaller } = useMobile();
-  const [searchedColors, setSearchedColors] = useState([
-    ...new Set(cardsData?.map((card) => card?.color)),
-  ]);
-  const [searchedGenders, setSearchedGenders] = useState([
-    ...new Set(cardsData?.map((card) => card?.gender)),
-  ]);
-  const [searchedTypes, setSearchedTypes] = useState([
-    ...new Set(cardsData?.map((card) => card?.type)),
-  ]);
+  // const [searchedColors, setSearchedColors] = useState([
+  //   ...new Set(cardsData?.map((card) => card?.color)),
+  // ]);
+  // const [searchedGenders, setSearchedGenders] = useState([
+  //   ...new Set(cardsData?.map((card) => card?.gender)),
+  // ]);
+  // const [searchedTypes, setSearchedTypes] = useState([
+  //   ...new Set(cardsData?.map((card) => card?.type)),
+  // ]);
   const prices = ["0-250", "250-450", "450"];
 
-  const updateFilters = (cardsData) => {
-    setSearchedColors([...new Set(cardsData?.map((card) => card?.color))]);
-    setSearchedGenders([...new Set(cardsData?.map((card) => card?.gender))]);
-    setSearchedTypes([...new Set(cardsData?.map((card) => card?.type))]);
-  };
+  // const updateFilters = (cardsData) => {
+  //   setSearchedColors([...new Set(cardsData?.map((card) => card?.color))]);
+  //   setSearchedGenders([...new Set(cardsData?.map((card) => card?.gender))]);
+  //   setSearchedTypes([...new Set(cardsData?.map((card) => card?.type))]);
+  // };
 
   const handleSearch = (e) => {
     console.log("enter");
@@ -60,7 +67,7 @@ function Products() {
         return false;
       });
       setVisibleCards(filteredCards);
-      updateFilters(filteredCards, matchingProps);
+      updateFilters(filteredCards);
     }
   };
 
@@ -88,9 +95,9 @@ function Products() {
             </div>
 
             <Filters
-              searchedColors={searchedColors}
-              searchedGenders={searchedGenders}
-              searchedTypes={searchedTypes}
+              // searchedColors={searchedColors}
+              // searchedGenders={searchedGenders}
+              // searchedTypes={searchedTypes}
               prices={prices}
               hasApplyButton={true}
               setIsOpen={setIsOpen}

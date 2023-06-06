@@ -1,24 +1,35 @@
 import { useCardsContext } from "Context/cardsProvider";
+import { useFiltersContext } from "Context/filtersProvider";
 import React, { useEffect, useState } from "react";
 import FiltersClasses from "styles/components/Filters.module.scss";
 
 function Filters(props) {
+  const { prices = [], hasApplyButton = false, setIsOpen = () => null } = props;
   const { cardsData = [] } = useCardsContext();
   const {
-    searchedColors = [],
     searchedGenders = [],
+    searchedColors = [],
     searchedTypes = [],
-    prices = [],
-    hasApplyButton = false,
-    setIsOpen = () => null,
-  } = props;
+  } = useFiltersContext();
   const colors = [...new Set(cardsData?.map((card) => card?.color))];
   const genders = [...new Set(cardsData?.map((card) => card?.gender))];
   const types = [...new Set(cardsData?.map((card) => card?.type))];
-  const [checkedColors, setCheckedColors] = useState(searchedColors);
-  const [checkedGenders, setCheckedGenders] = useState(searchedGenders);
-  const [checkedTypes, setCheckedTypes] = useState(searchedTypes);
+  const [checkedColors, setCheckedColors] = useState(colors);
+  const [checkedGenders, setCheckedGenders] = useState(genders);
+  const [checkedTypes, setCheckedTypes] = useState(types);
   const [checkedRanges, setCheckedRanges] = useState(prices);
+  useEffect(() => {
+    if (
+      searchedGenders.length === 0 &&
+      searchedColors.length === 0 &&
+      searchedTypes.length === 0
+    ) {
+      return; // Skip state updates if values are not set yet
+    }
+    setCheckedColors(searchedColors);
+    setCheckedTypes(searchedTypes);
+    setCheckedGenders(searchedGenders);
+  }, [searchedGenders, searchedColors, searchedTypes]);
 
   const handleCheckboxChange = (event, value) => {
     const isChecked = event.target.checked;
