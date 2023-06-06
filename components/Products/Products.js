@@ -1,5 +1,5 @@
 import Filters from "components/Filters/Filters";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductsClasses from "styles/components/Products.module.scss";
 import useMobile from "utils/hooks/useMobile";
 import ProductsGrid from "./ProductsGrid";
@@ -9,40 +9,23 @@ import { useFiltersContext } from "Context/filtersProvider";
 
 function Products() {
   const { cardsData = [] } = useCardsContext();
-  const {
-    // searchedGenders = [],
-    // searchedColors = [],
-    // searchedTypes = [],
-    updateFilters,
-  } = useFiltersContext();
+  const { updateFilters = () => null } = useFiltersContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCards, setVisibleCards] = useState(cardsData);
   const [isOpen, setIsOpen] = useState(false);
-  const { isTabletOrSmaller } = useMobile();
-  // const [searchedColors, setSearchedColors] = useState([
-  //   ...new Set(cardsData?.map((card) => card?.color)),
-  // ]);
-  // const [searchedGenders, setSearchedGenders] = useState([
-  //   ...new Set(cardsData?.map((card) => card?.gender)),
-  // ]);
-  // const [searchedTypes, setSearchedTypes] = useState([
-  //   ...new Set(cardsData?.map((card) => card?.type)),
-  // ]);
-  const prices = ["0-250", "250-450", "450"];
+  const { isTabletOrSmaller = false } = useMobile();
 
-  // const updateFilters = (cardsData) => {
-  //   setSearchedColors([...new Set(cardsData?.map((card) => card?.color))]);
-  //   setSearchedGenders([...new Set(cardsData?.map((card) => card?.gender))]);
-  //   setSearchedTypes([...new Set(cardsData?.map((card) => card?.type))]);
-  // };
+  useEffect(() => {
+    updateFilters(cardsData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSearch = (e) => {
-    console.log("enter");
     e.preventDefault();
     if (!searchTerm) {
       setVisibleCards(cardsData);
+      updateFilters(cardsData);
     } else {
-      console.log("hit");
       let matchingProps = {};
       const excludedKeys = ["imageURL"];
       const filteredCards = cardsData.filter((item) => {
@@ -87,6 +70,7 @@ function Products() {
           setSearchTerm={setSearchTerm}
         />
       </div>
+
       {isTabletOrSmaller && isOpen && (
         <div id="filters__modal" className={ProductsClasses["filters__modal"]}>
           <div className={ProductsClasses["filters__modal_content"]}>
@@ -94,14 +78,7 @@ function Products() {
               <span onClick={() => setIsOpen(false)}>&times;</span>
             </div>
 
-            <Filters
-              // searchedColors={searchedColors}
-              // searchedGenders={searchedGenders}
-              // searchedTypes={searchedTypes}
-              prices={prices}
-              hasApplyButton={true}
-              setIsOpen={setIsOpen}
-            />
+            <Filters hasApplyButton={true} setIsOpen={setIsOpen} />
           </div>
         </div>
       )}

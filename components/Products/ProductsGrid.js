@@ -4,7 +4,7 @@ import ProductsGridClasses from "styles/components/ProductsGrid.module.scss";
 
 function ProductsGrid(props) {
   const { cardsDisplayData = {} } = props;
-  console.log("cardsDisplaydata", props.cardsDisplayData);
+  // console.log("cardsDisplaydata", props.cardsDisplayData);
   return (
     <>
       <div className={ProductsGridClasses["productsGrid__main"]}>

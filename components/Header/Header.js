@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import { useCardsContext } from "Context/cardsProvider";
+import { useFiltersContext } from "Context/filtersProvider";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -7,12 +8,14 @@ import useMobile from "utils/hooks/useMobile";
 
 function Header() {
   const router = useRouter();
-  const { isMobileOrSmaller } = useMobile();
+  const { isMobileOrSmaller = false } = useMobile();
   return (
     <header className={HeaderClasses["header_main"]}>
       <div
         className={HeaderClasses["header_left"]}
-        onClick={() => router.push("/")}
+        onClick={() => {
+          router.push("/");
+        }}
       >
         TeeRex Store
       </div>

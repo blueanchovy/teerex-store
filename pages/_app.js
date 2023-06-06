@@ -2,10 +2,10 @@ import CardsProvider from "Context/cardsProvider";
 import "../styles/globals.css";
 import FiltersProvider from "Context/filtersProvider";
 
-function MyApp({ Component, pageProps, cardsData }) {
+function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(
-    <CardsProvider cardsData={cardsData}>
+    <CardsProvider>
       <FiltersProvider>
         <Component {...pageProps} />
       </FiltersProvider>

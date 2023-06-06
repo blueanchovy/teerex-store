@@ -11,7 +11,7 @@ function SearchBar(props) {
     setIsOpen = () => null,
     setSearchTerm = () => null,
   } = props;
-  const { isTabletOrSmaller } = useMobile();
+  const { isTabletOrSmaller = false } = useMobile();
   return (
     <div className={ProductsClasses["products__search__bar"]}>
       <input

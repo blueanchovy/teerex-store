@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useCardsContext } from "./cardsProvider";
 
 const FiltersContext = createContext();
@@ -7,7 +7,6 @@ export const useFiltersContext = () => useContext(FiltersContext);
 
 export default function FiltersProvider({ children }) {
   const { cardsData: initialCardsData } = useCardsContext();
-  console.log(initialCardsData);
   const [searchedColors, setSearchedColors] = useState([
     ...new Set(initialCardsData?.map((card) => card?.color)),
   ]);
@@ -19,7 +18,6 @@ export default function FiltersProvider({ children }) {
   ]);
 
   const updateFilters = (filteredCardsData) => {
-    console.log("hit");
     setSearchedColors([
       ...new Set(filteredCardsData?.map((card) => card?.color)),
     ]);
