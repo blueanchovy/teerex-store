@@ -20,37 +20,74 @@ function Products() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const calculateMatchingProps = (item, searchWords, excludedKeys) => {
+    return Object.entries(item).reduce((properties, [key, value]) => {
+      if (
+        !excludedKeys.includes(key) &&
+        searchWords.some((word) => {
+          return String(value).toLowerCase().includes(word);
+        })
+      ) {
+        const words = String(value).toLowerCase().split(" ");
+        const matchingWords = words.filter((word) =>
+          searchWords.includes(word)
+        );
+        properties.push(...matchingWords);
+      }
+      return properties;
+    }, []);
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (!searchTerm) {
       setVisibleCards(cardsData);
       updateFilters(cardsData);
     } else {
-      let matchingProps = {};
-      const excludedKeys = ["imageURL"];
+      const searchWords = searchTerm.toLowerCase().split(" ");
+      const excludedKeys = ["imageURL", "quantity", "price", "currency", "id"];
+
       const filteredCards = cardsData.filter((item) => {
-        matchingProps = Object.entries(item).reduce(
-          (properties, [key, value]) => {
-            if (
-              !excludedKeys.includes(key) &&
-              String(value).toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              properties.push(key);
-            }
-            return properties;
-          },
-          []
+        const matchingProps = calculateMatchingProps(
+          item,
+          searchWords,
+          excludedKeys
         );
-        if (matchingProps.length > 0) {
-          // console.log(
-          //   `"${searchTerm}" found in properties: ${matchingProps.join(", ")}`
-          // );
-          return true;
-        }
-        return false;
+        const hasAllSearchedWords = searchWords.every((word) =>
+          matchingProps.includes(word)
+        );
+        return hasAllSearchedWords;
       });
-      setVisibleCards(filteredCards);
-      updateFilters(filteredCards);
+
+      const sortedCards = filteredCards.sort((a, b) => {
+        const matchingPropsA = calculateMatchingProps(
+          a,
+          searchWords,
+          excludedKeys
+        );
+        const matchingPropsB = calculateMatchingProps(
+          b,
+          searchWords,
+          excludedKeys
+        );
+
+        if (matchingPropsA.length === matchingPropsB.length) {
+          const aWordIndex = searchWords.findIndex((word) =>
+            String(a).toLowerCase().includes(word)
+          );
+          const bWordIndex = searchWords.findIndex((word) =>
+            String(b).toLowerCase().includes(word)
+          );
+
+          return aWordIndex - bWordIndex;
+        }
+
+        return matchingPropsB.length - matchingPropsA.length;
+      });
+
+      setVisibleCards(sortedCards);
+      updateFilters(sortedCards);
+      console.log("sorted", sortedCards);
     }
   };
 
